@@ -1,0 +1,3 @@
+CREATE DATABASE bovin;
+\c bovin
+CREATE EXTENSION IF NOT EXISTS vector;

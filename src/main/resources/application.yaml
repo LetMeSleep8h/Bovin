@@ -1,0 +1,36 @@
+server:
+  port: 8082
+  servlet:
+    context-path: /api
+spring:
+  application:
+    name: Bovin
+  datasource:
+    url: ${BOVIN_DB_URL:jdbc:postgresql://localhost:5432/bovin}
+#    username: ${BOVIN_DB_USERNAME:postgres}
+#    password: ${BOVIN_DB_PASSWORD:postgres}
+    driver-class-name: org.postgresql.Driver
+  ai:
+    openai:
+      base-url: ${BOVIN_AI_BASE_URL:https://dashscope.aliyuncs.com/compatible-mode/v1}
+      api-key: 
+      embedding:
+        options:
+          model: ${BOVIN_EMBEDDING_MODEL:text-embedding-v4}
+          dimensions: ${BOVIN_EMBEDDING_DIMENSIONS:1536}
+  sql:
+    init:
+      mode: always
+
+mybatis-plus:
+  configuration:
+    map-underscore-to-camel-case: true
+
+bovin:
+  rag:
+    chunk-size: 800
+    chunk-overlap: 120
+    keyword-top-k: 8
+    vector-top-k: 8
+    keyword-weight: 0.4
+    vector-weight: 0.6
