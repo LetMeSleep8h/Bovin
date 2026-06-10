@@ -1,5 +1,5 @@
 local.yml
-application.yaml
+application-local.yml
 src/main/resources/application-local.yaml
 HELP.md
 target/
