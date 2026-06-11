@@ -14,12 +14,12 @@ class HybridSearchMergerTest {
 
         List<SearchCandidate> merged = merger.merge(
                 List.of(
-                        new SearchCandidate(1L, "spring boot", "resume.md", 0.9, SearchSource.KEYWORD),
-                        new SearchCandidate(2L, "redis", "resume.md", 0.5, SearchSource.KEYWORD)
+                        new SearchCandidate(1L, 101L, "spring boot", "resume.md", 0.9, SearchSource.KEYWORD),
+                        new SearchCandidate(2L, 102L, "redis", "resume.md", 0.5, SearchSource.KEYWORD)
                 ),
                 List.of(
-                        new SearchCandidate(1L, "spring boot", "resume.md", 0.7, SearchSource.VECTOR),
-                        new SearchCandidate(3L, "rag", "resume.md", 0.8, SearchSource.VECTOR)
+                        new SearchCandidate(1L, 101L, "spring boot", "resume.md", 0.7, SearchSource.VECTOR),
+                        new SearchCandidate(3L, 103L, "rag", "resume.md", 0.8, SearchSource.VECTOR)
                 ),
                 3
         );

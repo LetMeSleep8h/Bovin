@@ -89,6 +89,7 @@ public class RagService {
         List<RagSearchHit> hits = hybridSearchMerger.merge(keywordHits, vectorHits, finalTopK).stream()
                 .map(candidate -> new RagSearchHit(
                         candidate.chunkId(),
+                        candidate.documentId(),
                         candidate.chunkText(),
                         candidate.sourceName(),
                         candidate.source().name(),
@@ -98,10 +99,10 @@ public class RagService {
     }
 
     private SearchCandidate toKeywordCandidate(RagChunkRow row) {
-        return new SearchCandidate(row.getChunkId(), row.getChunkText(), row.getSourceName(), row.getScore(), SearchSource.KEYWORD);
+        return new SearchCandidate(row.getChunkId(), row.getDocumentId(), row.getChunkText(), row.getSourceName(), row.getScore(), SearchSource.KEYWORD);
     }
 
     private SearchCandidate toVectorCandidate(RagChunkRow row) {
-        return new SearchCandidate(row.getChunkId(), row.getChunkText(), row.getSourceName(), row.getScore(), SearchSource.VECTOR);
+        return new SearchCandidate(row.getChunkId(), row.getDocumentId(), row.getChunkText(), row.getSourceName(), row.getScore(), SearchSource.VECTOR);
     }
 }

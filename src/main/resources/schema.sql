@@ -22,6 +22,18 @@ CREATE TABLE IF NOT EXISTS rag_chunk (
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
+CREATE TABLE IF NOT EXISTS mock_record (
+    id BIGSERIAL PRIMARY KEY,
+    chunk_id BIGINT NOT NULL,
+    document_id BIGINT,
+    source_name VARCHAR(255) NOT NULL,
+    question_text TEXT NOT NULL,
+    answer_text TEXT NOT NULL,
+    feedback_json TEXT NOT NULL,
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
 CREATE INDEX IF NOT EXISTS idx_rag_chunk_document_id ON rag_chunk (document_id);
 CREATE INDEX IF NOT EXISTS idx_rag_chunk_fts ON rag_chunk USING GIN (fts);
 CREATE INDEX IF NOT EXISTS idx_rag_chunk_embedding ON rag_chunk USING hnsw (embedding vector_cosine_ops);
+CREATE INDEX IF NOT EXISTS idx_mock_record_created_at ON mock_record (created_at DESC);

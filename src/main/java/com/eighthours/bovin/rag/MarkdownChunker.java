@@ -5,9 +5,12 @@ import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Pattern;
 
 @Component
 public class MarkdownChunker {
+
+    private static final Pattern QUESTION_HEADING_PATTERN = Pattern.compile("^(Q\\d+|反问\\s*\\d+).*$");
 
     private final int chunkSize;
     private final int chunkOverlap;
@@ -51,7 +54,7 @@ public class MarkdownChunker {
 
     private void appendSection(List<ChunkFragment> sections, String heading, StringBuilder sectionBuilder) {
         String text = sectionBuilder.toString().trim();
-        if (!text.isBlank()) {
+        if (!text.isBlank() && !isHeadingOnlySection(heading, text)) {
             sections.add(new ChunkFragment(heading, text));
         }
     }
@@ -75,5 +78,15 @@ public class MarkdownChunker {
             }
         }
         return chunks;
+    }
+
+    private boolean isHeadingOnlySection(String heading, String text) {
+        if (heading == null || heading.isBlank()) {
+            return false;
+        }
+        if (QUESTION_HEADING_PATTERN.matcher(heading).matches()) {
+            return false;
+        }
+        return heading.equals(text.trim());
     }
 }
